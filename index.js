@@ -70,6 +70,8 @@ function crearListaNombres() {
 
     const nombreContainer = document.createElement('div');
     nombreContainer.textContent = nombre;
+    nombreContainer.classList.add('div-nombre');
+
 
     const buttonsContainer = document.createElement('div');
 
