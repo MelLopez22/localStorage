@@ -30,10 +30,29 @@ obtenerButton.addEventListener('click', () => {
 });
 
 eliminarButton.addEventListener('click', () => {
-    localStorage.removeItem('nombres');
-    nombres = [];
-    resultadoP.textContent = '';
+  if (nombres.length === 0 || localStorage.getItem('nombres') === null) {
+    Swal.fire('LocalStorage está vacío', '', 'warning'); // Mostrar SweetAlert si el LocalStorage ya está vacío
+  } else {
+    Swal.fire({
+      title: '¿Estás seguro?',
+      text: 'Se eliminarán todos los nombres del LocalStorage',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Sí, eliminar',
+      cancelButtonText: 'Cancelar'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        localStorage.removeItem('nombres');
+        nombres = [];
+        resultadoP.innerHTML = '';
+        Swal.fire('LocalStorage eliminado', '', 'success');
+      }
+    });
+  }
 });
+
 
 function crearListaNombres() {
   resultadoP.innerHTML = '';
